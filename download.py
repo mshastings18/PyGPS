@@ -16,6 +16,9 @@ log_dir = pygps_path + 'logs/'
 global default_steps_db
 default_steps_db = os.path.join(pygps_path, 'ngl_db_files', 'master_steps_db.txt')
 
+global default_locs_db
+default_locs_db = os.path.join(pygps_path, 'ngl_db_files', 'ngl_station_locations.txt')
+
 def df2lut(df, column_key):
     ''' convert dataframe to a look-up-table dict where the given column becomes the top-level key '''
 
@@ -82,7 +85,7 @@ def check_for_file(file, keyword_arg):
 		print("PyGPS [INFO]: Supplementary file found!")
 
 
-def stations_within_radius(lon, lat, search_radius=100, station_db='./supp_files/ngl_station_locations.txt'):
+def stations_within_radius(lon, lat, search_radius=100, station_db=default_locs_db):
 	''' return a list of stations within a radius (km) of a given location '''
 
 	# check that the station file is there to read
@@ -105,7 +108,7 @@ def stations_within_radius(lon, lat, search_radius=100, station_db='./supp_files
 
 	return station_list
 
-def stations_within_bbox(lon_min=-80.5, lon_max=-79.5, lat_min=40, lat_max=41, station_db='./supp_files/ngl_station_locations.txt'):
+def stations_within_bbox(lon_min=-80.5, lon_max=-79.5, lat_min=40, lat_max=41, station_db=default_locs_db):
 	''' return a list of stations within a bounding box - default bounding box set to around pittsburgh '''
 	
 	# check that the station file is there to read
@@ -151,11 +154,10 @@ def scrape_loc_ngl(station):
 	# return the coords
 	return lat, long, height
 
-def read_loc_db(station):
+def read_loc_db(station, ngl_file=default_locs_db):
 	''' grab the station location from the llh file from ngl '''
 
 	# make sure the ngl file is in the PyGPS dir
-	ngl_file = os.path.join(pygps_path, 'ngl_db_files', 'ngl_station_locations.txt')
 	if (os.path.isfile(ngl_file) == False):
 		raise ValueError("PyGPS [ERROR]: Expected to find NGL locations file from {%s} but did not find it." % (ngl_file) )
 

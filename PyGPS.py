@@ -261,7 +261,7 @@ class PyGPS:
 		self.data['e_disp'] = self.data.east - self.data.east[index]
 		self.data['u_disp'] = self.data.up - self.data.up[index]
 
-	def plotNEU(self):
+	def plot_neu_comps(self):
 		''' plot the north, east, and up component time series '''
 		
         # disps relative to first point

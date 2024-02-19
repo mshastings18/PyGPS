@@ -50,8 +50,6 @@ PyGPS methods:
 * __PyGPS.forward_components(model_dict, component_list)__ - Run forward model for only the components listed in [component_list]. Component names mimic those in the [model_dict] except "annual" and "semiannual" are used to encompass both the sine and cosine terms of the [model_dict]. 
 * __PyGPS.remove_components(model_dict, component_list)__ - Runs PyGPS.foward_components() and removes the calculated components from the GPS time series (North/East/Up). The output is a dataframe that can be used for plotting or saving to text files. 
 
-A treu "help" doc to come...
-
 ### The download module
 
 The download module contains functions to download data files, generate log files of downloads, and update hosted data files such as the steps database. Development of the PyGPS class would include 
@@ -72,7 +70,20 @@ download.py module functions:
 
 ### the modeling module
 
+The modeling module contains extra functions for saving/reading model outputs from the PyGPS class as well as making plots, forward models, and coordinate translations of the models. 
 
+modeling.py module functions:
+* __PyGPS.line_prepender(filename, line)__ - add a string [line] to the top of a file
+* __PyGPS.enu2los_translation(dataframe, unit_vector_dict, obs_type='observed', uncertainty=False)__ - convert East/North/Up [dataframe] to satellite line-of-sight (LOS) coordinate system for comparison with InSAR/TAR given a unit look vector dictionary [unit_vector_dict]. If dataframe has detrended ENU then use obs_type='detrended', otherwise default is 'observed'. Uncertainty can be turned on as well to translate uncertainties into LOS reference frame. 
+* __PyGPS.save_models(outfile, model_list)__ - save the [model_list] from Monte Carlo Simulations to [outfile].
+* __PyGPS.read_models(model_file)__ - read in the output datafile from __save_models()__
+* __PyGPS.best_enu_models(model_list)__ - get the best model parameters for each component from [model_list] with lowest RMSE.
+* __PyGPS.enu_ss_forward(time, model_dict)__ - run forward model of the seasonal signal models from parameters in [model_dict] over the given [time] array.
+* __PyGPS.ss_forward(time, dc)__ - subordinate function of __enu_ss_forward()__ containing math for each forward model.
+* __PyGPS.date2decYear(day, month, year)__ - convert a date to decimal year, i.e., date2decYear(15, 'Jun', 2010).
+* __PyGPS.plot_model_ss(forward_models, pygps_obj)__ - plot the forward model from __enu_ss_forward()__. 
+* __PyGPS.plot_model_space(models, grid_inc=1, interpolation_type='linear', levels=10, grid_flage=True)__ - plot the residual space from the Monte Carlo models to evaluate if the solution exists in local minima or where to refine search for optimal parametters.
+* __PyGPS.plot_model_removal(detrend_df, forward_models, site)__ - plot the data minus the model components of interest. 
 
 ## Install and Usage
 

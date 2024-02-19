@@ -26,7 +26,7 @@ PyGPS default attributes:
 * PyGPS.site - string of the site name.
 * PyGPS.lat, PyGPS.lon, PyGPS.elev - Latitude, Longitude, and Elevation of the site.
 * PyGPS.steps - dictionary containing known offsets in the time series using the date convention on the NGL websitte.
-* PyGPS.model = dictionary containing the model parameters for each componenet (North/East/Up) of the Weighted Least Squares Inversion.
+* PyGPS.model - dictionary containing the model parameters for each componenet (North/East/Up) of the Weighted Least Squares Inversion.
 
 PyGPS methods:
 * PyGPS.PyGPS(gps_datafile) - initialize a PyGPS object with the data contained in [gps_datafile]. If a [gps_dattafile] is supplied, the initializer will use the .load_ngl_file(), .calc_disp(), and .get_steps() methods to read, calculate relative displacements to the start of the time series, and get any known time steps from the hosted [default_steps_db] file. If no input is given a blank PyGPS object will be created.
